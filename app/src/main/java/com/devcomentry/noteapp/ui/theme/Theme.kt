@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 @Composable
-fun CleanArchitectureTheme( content: @Composable() () -> Unit) {
+fun CleanArchitectureTheme(content: @Composable () -> Unit) {
     MaterialTheme(
         typography = Typography,
         content = content
