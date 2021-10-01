@@ -5,7 +5,7 @@ import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.devcomentry.noteapp.presentation.navigation.Param
 
-abstract class ComposeScreen(val route: String){
+open class ComposeScreen(val route: String){
     fun setParam(param: Param): String {
         var routeString = "$route?"
         val fields = param.javaClass.declaredFields
