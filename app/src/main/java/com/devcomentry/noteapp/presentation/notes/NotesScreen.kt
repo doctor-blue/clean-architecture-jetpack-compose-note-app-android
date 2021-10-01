@@ -13,7 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.devcomentry.noteapp.presentation.util.Screen
+import com.devcomentry.noteapp.presentation.navigation.Screen
+import com.devcomentry.noteapp.presentation.navigation.UpdateScreenParam
 import kotlinx.coroutines.launch
 
 @Composable
@@ -50,9 +51,9 @@ fun NotesScreen(
                 items(state.notes) { note ->
                     NoteItem(note = note,
                         modifier = Modifier.fillMaxWidth().clickable {
+                            val a = Screen.UpdateNote.setParam(UpdateScreenParam(noteId = note.id))
                             navController.navigate(
-                                Screen.UpdateNote.route
-                                        + "?noteId=${note.id}"
+                                a
                             )
                         },
                         onDelete = {
