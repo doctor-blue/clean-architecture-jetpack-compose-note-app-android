@@ -23,10 +23,10 @@ fun Navigation() {
         }
         val screenParam = UpdateScreenParam()
         val route = Screen.UpdateNote.getRoute(screenParam)
-        val list = Screen.UpdateNote.getNavArgs(screenParam)
+        val args = Screen.UpdateNote.getNavArgs(screenParam)
         composable(
             route,
-            arguments = list
+            arguments = args
         ) {
             UpdateNoteScreen(
                 navController = navController
