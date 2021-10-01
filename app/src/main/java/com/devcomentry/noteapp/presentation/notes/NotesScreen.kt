@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.devcomentry.noteapp.presentation.navigation.Screen
-import com.devcomentry.noteapp.presentation.navigation.UpdateScreenParam
+import com.devcomentry.noteapp.presentation.navigation.UpdateScreenArgument
 import kotlinx.coroutines.launch
 
 @Composable
@@ -51,7 +51,7 @@ fun NotesScreen(
                 items(state.notes) { note ->
                     NoteItem(note = note,
                         modifier = Modifier.fillMaxWidth().clickable {
-                            val a = Screen.UpdateNote.setParam(UpdateScreenParam(noteId = note.id))
+                            val a = Screen.UpdateNote.setParam(UpdateScreenArgument(noteId = note.id))
                             navController.navigate(
                                 a
                             )

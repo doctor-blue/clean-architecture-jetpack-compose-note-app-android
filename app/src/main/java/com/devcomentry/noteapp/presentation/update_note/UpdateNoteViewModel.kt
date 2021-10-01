@@ -5,8 +5,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.devcomentry.lib.get
 import com.devcomentry.noteapp.domain.model.Note
 import com.devcomentry.noteapp.domain.use_case.NoteUseCases
+import com.devcomentry.noteapp.presentation.navigation.UpdateScreenArgument
 import com.devcomentry.noteapp.presentation.util.AddEditNoteEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -18,10 +20,10 @@ class UpdateNoteViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
     init {
-        savedStateHandle.get<Int>("noteId")?.let {
-            if (it != -1) {
+        (savedStateHandle.get(UpdateScreenArgument()) as UpdateScreenArgument).let { arg ->
+            if (arg.noteId!= - 1) {
                 viewModelScope.launch {
-                    noteUseCases.getNote(it)?.also { note ->
+                    noteUseCases.getNote(arg.noteId)?.also { note ->
                         currentNoteId = note.id
                         _noteTitle.value = note.title
                         _noteContent.value = note.content
@@ -56,7 +58,9 @@ class UpdateNoteViewModel @Inject constructor(
                             content = noteContent.value,
                             timestamp = System.currentTimeMillis(),
                         ).apply {
-                            id = currentNoteId
+                            currentNoteId?.let {
+                                id = it
+                            }
                         }
                     )
 

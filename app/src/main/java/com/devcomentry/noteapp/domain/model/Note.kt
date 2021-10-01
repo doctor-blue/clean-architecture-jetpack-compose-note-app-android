@@ -10,5 +10,5 @@ data class Note(
     val timestamp: Long,
 ) {
     @PrimaryKey(autoGenerate = true)
-    var id: Int? = null
+    var id: Int = 0
 }
