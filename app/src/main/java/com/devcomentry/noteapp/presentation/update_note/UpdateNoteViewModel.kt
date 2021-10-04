@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.devcomentry.lib.get
+import com.devcomentry.lib.from
 import com.devcomentry.noteapp.domain.model.Note
 import com.devcomentry.noteapp.domain.use_case.NoteUseCases
 import com.devcomentry.noteapp.presentation.navigation.UpdateScreenArgument
@@ -20,14 +20,13 @@ class UpdateNoteViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
     init {
-        (savedStateHandle.get(UpdateScreenArgument()) as UpdateScreenArgument).let { arg ->
-            if (arg.noteId!= - 1) {
-                viewModelScope.launch {
-                    noteUseCases.getNote(arg.noteId)?.also { note ->
-                        currentNoteId = note.id
-                        _noteTitle.value = note.title
-                        _noteContent.value = note.content
-                    }
+        val argument = UpdateScreenArgument().from(savedStateHandle)
+        if (argument.noteId != -1) {
+            viewModelScope.launch {
+                noteUseCases.getNote(argument.noteId)?.also { note ->
+                    currentNoteId = note.id
+                    _noteTitle.value = note.title
+                    _noteContent.value = note.content
                 }
             }
         }
